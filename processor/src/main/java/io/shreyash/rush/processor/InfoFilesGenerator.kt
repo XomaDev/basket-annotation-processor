@@ -26,8 +26,8 @@ import kotlin.io.path.exists
 class InfoFilesGenerator(
     private val extensions: List<Extension>,
 ) {
-    private val projectRoot = System.getenv("RUSH_PROJECT_ROOT")
-    private val rawBuildDir = Paths.get(projectRoot, ".rush", "build", "raw").apply {
+    private val projectRoot = System.getenv("BASKET_PROJECT_ROOT")
+    private val rawBuildDir = Paths.get(projectRoot, ".basket", "build", "raw").apply {
         if (!this.exists()) this.createDirectory()
     }
 
@@ -160,14 +160,14 @@ class InfoFilesGenerator(
     /**
      * Get metadata file
      *
-     * @return The rush.yml file's data
+     * @return The basket.yml file's data
      * @throws IOException If the input can't be read for some reason.
      */
     private fun metadataFile(): RushYaml {
-        val rushYml = if (Paths.get(projectRoot, "rush.yml").exists()) {
-            Paths.get(projectRoot, "rush.yml").toFile()
+        val rushYml = if (Paths.get(projectRoot, "basket.yml").exists()) {
+            Paths.get(projectRoot, "basket.yml").toFile()
         } else {
-            Paths.get(projectRoot, "rush.yaml").toFile()
+            Paths.get(projectRoot, "basket.yaml").toFile()
         }
 
         return Yaml.default.decodeFromStream(RushYaml.serializer(), FileInputStream(rushYml))
